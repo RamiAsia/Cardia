@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.ramiasia.cardia.controller.MainActivity"
+    android:background="@color/colorPrimaryBG"
+    android:contentDescription="Icon for highest BPM">
+
+
+    <!--<com.github.mikephil.charting.charts.LineChart-->
+        <!--android:id="@+id/chart"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--tools:layout_editor_absoluteY="0dp"-->
+        <!--tools:layout_editor_absoluteX="0dp" />-->
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:elevation="10dp"
+        android:layout_marginTop="8dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/stat_sys_upload"
+        android:id="@+id/highBPMIcon"
+        android:layout_marginStart="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription=""
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/stats_label"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:text="Today's highest heart rate was 100 BPM"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/highBPMIcon"
+        app:layout_constraintTop_toTopOf="@+id/highBPMIcon"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/highBPMIcon" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/stat_sys_download"
+        android:id="@+id/lowBPMIcon"
+        app:layout_constraintRight_toRightOf="@+id/highBPMIcon"
+        app:layout_constraintLeft_toLeftOf="@+id/highBPMIcon"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/highBPMIcon"
+        android:contentDescription="Icon for lowest BPM"
+        android:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:text="Today's lowest heart rate was 0 BPM"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="@+id/lowBPMIcon"
+        app:layout_constraintLeft_toLeftOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/lowBPMIcon"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Today's lowest heart rate was 0 BPM" />
+
+    <TextView
+        android:text="Stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stats_label"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+</android.support.constraint.ConstraintLayout>
