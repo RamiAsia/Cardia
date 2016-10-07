@@ -2,7 +2,6 @@ package me.ramiasia.cardia.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Rami Asia on 10/7/16.
