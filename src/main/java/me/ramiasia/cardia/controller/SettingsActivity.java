@@ -1,6 +1,7 @@
 package me.ramiasia.cardia.controller;
 
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -9,6 +10,7 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -20,6 +22,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -258,7 +262,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public static class DataSyncPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener{
         //TODO: Save selected BLE device and persist data
 
-
+        private final static int MY_PERMISSIONS_REQUEST_BLUETOOTH = 12345678;
         public static final String KEY_BLE_SYNC = "ble_device_scan";
         private Handler mHandler;
 
@@ -300,6 +304,59 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             final BluetoothManager bluetoothManager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
             mBluetoothAdapter = bluetoothManager.getAdapter();
             mBluetoothLeScanner = mBluetoothAdapter.getBluetoothLeScanner();
+
+            mListPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+                    if (ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                                MY_PERMISSIONS_REQUEST_BLUETOOTH);
+                    } else {
+                        Log.d(this.getClass().getName(), "Should start scanning");
+                        if (mBluetoothAdapter == null) {
+                            Toast.makeText(getActivity(), R.string.no_ble_error_message, Toast.LENGTH_SHORT);
+                        } else {
+                            Log.d(this.getClass().getName(), "BLE works, now scanning");
+                            scanLeDevice(true);
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode,
+                                               String permissions[], int[] grantResults) {
+            switch (requestCode) {
+                case MY_PERMISSIONS_REQUEST_BLUETOOTH: {
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        Log.d(this.getClass().getName(), "Should start scanning");
+                        if (mBluetoothAdapter == null) {
+                            Toast.makeText(getActivity(), R.string.no_ble_error_message, Toast.LENGTH_SHORT);
+                        } else {
+                            Log.d(this.getClass().getName(), "BLE works, now scanning");
+                            scanLeDevice(true);
+                        }
+
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                    }
+                    return;
+                }
+
+                // other 'case' lines to check for other
+                // permissions this app might request
+            }
         }
 
         @Override
@@ -351,7 +408,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-
+            Log.d(this.getClass().getName(), "Should start scanning");
             if (preference.getKey().equals(KEY_BLE_SYNC)) {
                 if(mBluetoothAdapter == null) {
                     Toast.makeText(getActivity(), R.string.no_ble_error_message, Toast.LENGTH_SHORT);
