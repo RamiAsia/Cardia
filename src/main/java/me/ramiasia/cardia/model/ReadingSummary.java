@@ -38,6 +38,27 @@ public class ReadingSummary implements Comparable<ReadingSummary> {
         calculateStatistics();
     }
 
+
+    public Date getTime() {
+        return time;
+    }
+
+    public List<DataPoint> getDataPoints() {
+        return dataPoints;
+    }
+
+    public int getHighestHeartRate() {
+        return highestHeartRate;
+    }
+
+    public int getLowestHeartRate() {
+        return lowestHeartRate;
+    }
+
+    public ArrayList<Integer> getModeHeartRate() {
+        return modeHeartRate;
+    }
+
     private void calculateStatistics() {
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, mode = 0;
 
