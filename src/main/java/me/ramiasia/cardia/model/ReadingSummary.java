@@ -16,6 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ReadingSummary implements Comparable<ReadingSummary> {
 
 
+    private long _id;
+
     // Time of the Reading Summary
     private Date time;
 
@@ -38,6 +40,13 @@ public class ReadingSummary implements Comparable<ReadingSummary> {
         calculateStatistics();
     }
 
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
+    }
 
     public Date getTime() {
         return time;
@@ -110,6 +119,8 @@ public class ReadingSummary implements Comparable<ReadingSummary> {
 
         return modes;
     }
+
+
 
 
 

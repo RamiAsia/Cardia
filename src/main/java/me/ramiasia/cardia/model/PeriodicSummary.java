@@ -9,6 +9,8 @@ import java.util.Date;
 
 public class PeriodicSummary {
 
+    private long _id;
+
     // Start time of the Reading Summary
     private Date startTime;
 
@@ -35,6 +37,14 @@ public class PeriodicSummary {
         this.averageHeartRate = averageHeartRate;
         this.endTime = endTime;
         this.startTime = startTime;
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public Date getStartTime() {

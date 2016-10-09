@@ -260,7 +260,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class DataSyncPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener{
-        //TODO: Save selected BLE device and persist data
+
 
         private final static int MY_PERMISSIONS_REQUEST_BLUETOOTH = 12345678;
         public static final String KEY_BLE_SYNC = "ble_device_scan";
