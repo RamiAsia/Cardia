@@ -1,5 +1,7 @@
 package me.ramiasia.cardia.model;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,13 +11,13 @@ import java.util.Date;
 
 public class PeriodicSummary {
 
-    private long _id;
+    private long id;
 
     // Start time of the Reading Summary
-    private Date startTime;
+    private DateTime startTime;
 
     // End time of the Reading Summary
-    private Date endTime;
+    private DateTime endTime;
 
     // Highest heart rate recorded of the user
     private int highestHeartRate;
@@ -29,8 +31,16 @@ public class PeriodicSummary {
     // Mode of the recorded heart rates
     private ArrayList<Integer> modeHeartRate;
 
+    // Total energy expended
+    private int energyExpended;
 
-    public PeriodicSummary(Date startTime, Date endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
+    // Default Constructor
+    public PeriodicSummary(){
+
+    }
+
+
+    public PeriodicSummary(DateTime startTime, DateTime endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
         this.highestHeartRate = highestHeartRate;
         this.lowestHeartRate = lowestHeartRate;
         this.modeHeartRate = modes;
@@ -39,19 +49,32 @@ public class PeriodicSummary {
         this.startTime = startTime;
     }
 
-    public long get_id() {
-        return _id;
+    public PeriodicSummary(int id, DateTime startTime, DateTime endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
+        this.id = id;
+        this.highestHeartRate = highestHeartRate;
+        this.lowestHeartRate = lowestHeartRate;
+        this.modeHeartRate = modes;
+        this.averageHeartRate = averageHeartRate;
+        this.endTime = endTime;
+        this.startTime = startTime;
     }
 
-    public void set_id(long _id) {
-        this._id = _id;
+
+    // Getters and Setters
+
+    public long getId() {
+        return id;
     }
 
-    public Date getStartTime() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
@@ -69,5 +92,37 @@ public class PeriodicSummary {
 
     public ArrayList<Integer> getModeHeartRate() {
         return modeHeartRate;
+    }
+
+    public void setStartTime(DateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(DateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setHighestHeartRate(int highestHeartRate) {
+        this.highestHeartRate = highestHeartRate;
+    }
+
+    public void setLowestHeartRate(int lowestHeartRate) {
+        this.lowestHeartRate = lowestHeartRate;
+    }
+
+    public void setAverageHeartRate(int averageHeartRate) {
+        this.averageHeartRate = averageHeartRate;
+    }
+
+    public void setModeHeartRate(ArrayList<Integer> modeHeartRate) {
+        this.modeHeartRate = modeHeartRate;
+    }
+
+    public int getEnergyExpended() {
+        return energyExpended;
+    }
+
+    public void setEnergyExpended(int energyExpended) {
+        this.energyExpended = energyExpended;
     }
 }

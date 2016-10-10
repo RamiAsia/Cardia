@@ -9,7 +9,7 @@ import java.util.Date;
 public class DataPoint implements Comparable<DataPoint> {
 
 
-    long _id;
+    long id;
 
     // Heart Rate is measured in beats per minute (BPM)
     private int heartRate;
@@ -37,12 +37,12 @@ public class DataPoint implements Comparable<DataPoint> {
         this.time = new Date();
     }
 
-    public long get_id() {
-        return _id;
+    public long getId() {
+        return id;
     }
 
-    public void set_id(long _id) {
-        this._id = _id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getHeartRate() {
@@ -60,6 +60,24 @@ public class DataPoint implements Comparable<DataPoint> {
     public Date getTime() {
         return time;
     }
+
+    public void setHeartRate(int heartRate) {
+        this.heartRate = heartRate;
+    }
+
+    public void setEnergyExpended(int energyExpended) {
+        this.energyExpended = energyExpended;
+    }
+
+    public void setrRInterval(int rRInterval) {
+        this.rRInterval = rRInterval;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+
 
     @Override
     public int compareTo(DataPoint o) {

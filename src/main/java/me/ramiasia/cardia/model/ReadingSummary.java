@@ -1,13 +1,12 @@
 package me.ramiasia.cardia.model;
 
-import java.lang.reflect.Array;
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicInteger;
+
+import me.ramiasia.cardia.controller.HealthStatistics;
 
 /**
  * Created by Rami Asia on 10/7/16.
@@ -16,13 +15,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ReadingSummary implements Comparable<ReadingSummary> {
 
 
-    private long _id;
+    private long id;
 
     // Time of the Reading Summary
-    private Date time;
+    private DateTime time;
 
     // List of all the data points
-    private List<DataPoint> dataPoints;
+    private ArrayList<DataPoint> dataPoints;
+
+    // Count of heart rate samples taken
+    private int dataPointCount;
 
     // Highest heart rate recorded of the user
     private int highestHeartRate;
@@ -33,26 +35,56 @@ public class ReadingSummary implements Comparable<ReadingSummary> {
     // Mode of the recorded heart rates
     private ArrayList<Integer> modeHeartRate;
 
-    public ReadingSummary(List<DataPoint> dataPoints){
+    // Total energy expended
+    private int energyExpended;
+
+
+
+    // Constructors
+
+    public ReadingSummary(){
+
+    }
+
+    public ReadingSummary(ArrayList<DataPoint> dataPoints){
         this.dataPoints = dataPoints;
-        this.time = new Date();
-
-        calculateStatistics();
+        this.time = new DateTime();
     }
 
-    public long get_id() {
-        return _id;
+    public ReadingSummary(int id, DateTime time, int dataPointCount, int highestHeartRate, int lowestHeartRate, ArrayList<Integer> modes) {
+        this.id = id;
+        this.time = time;
+        this.dataPointCount = dataPointCount;
+        this.highestHeartRate = highestHeartRate;
+        this.lowestHeartRate = lowestHeartRate;
+        this.modeHeartRate = modes;
     }
 
-    public void set_id(long _id) {
-        this._id = _id;
+
+
+    // Getters and Setters
+
+    public long getId() {
+        return id;
     }
 
-    public Date getTime() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getDataPointCount() {
+        return dataPointCount;
+    }
+
+    public void setDataPointCount(int dataPointCount) {
+        this.dataPointCount = dataPointCount;
+    }
+
+    public DateTime getTime() {
         return time;
     }
 
-    public List<DataPoint> getDataPoints() {
+    public ArrayList<DataPoint> getDataPoints() {
         return dataPoints;
     }
 
@@ -68,60 +100,33 @@ public class ReadingSummary implements Comparable<ReadingSummary> {
         return modeHeartRate;
     }
 
-    private void calculateStatistics() {
-        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, mode = 0;
-
-        int[] heartRates = new int[dataPoints.size()];
-        int index = 0;
-        for (DataPoint dataPoint: this.dataPoints) {
-            int heartRate = dataPoint.getHeartRate();
-            if(heartRate < min) min = dataPoint.getHeartRate();
-            if(heartRate > max) max = dataPoint.getHeartRate();
-            heartRates[index++] = heartRate;
-        }
-
-        this.lowestHeartRate = min;
-        this.highestHeartRate = max;
-        this.modeHeartRate = calculateModes(heartRates);
+    public void setTime(DateTime time) {
+        this.time = time;
     }
 
-    private ArrayList<Integer> calculateModes(int[] heartRates){
-        ArrayList<Integer> modes = new ArrayList<Integer>();
-        Arrays.sort(heartRates);
-
-        int oldMax = 0, currentMax = 0, currentValue = -1, oldValue = 0;
-
-        for (Integer heartRate : heartRates) {
-            if(heartRate == currentValue) {
-                currentMax++;
-            } else {
-                if(currentMax == oldMax) {
-                    modes.add(currentValue);
-                } else if (currentMax > oldMax) {
-                    modes.clear();
-                    modes.add(currentValue);
-                    oldMax = currentMax;
-                }
-                oldValue = currentValue;
-                currentValue = heartRate;
-                currentMax = 1;
-            }
-        }
-
-        if(oldValue != currentValue) {
-            if(currentMax == oldMax) {
-                modes.add(currentValue);
-            } else if (currentMax > oldMax) {
-                modes.clear();
-                modes.add(currentValue);
-            }
-        }
-
-        return modes;
+    public void setDataPoints(ArrayList<DataPoint> dataPoints) {
+        this.dataPoints = dataPoints;
     }
 
+    public void setHighestHeartRate(int highestHeartRate) {
+        this.highestHeartRate = highestHeartRate;
+    }
 
+    public void setLowestHeartRate(int lowestHeartRate) {
+        this.lowestHeartRate = lowestHeartRate;
+    }
 
+    public void setModeHeartRate(ArrayList<Integer> modeHeartRate) {
+        this.modeHeartRate = modeHeartRate;
+    }
+
+    public int getEnergyExpended() {
+        return energyExpended;
+    }
+
+    public void setEnergyExpended(int energyExpended) {
+        this.energyExpended = energyExpended;
+    }
 
 
     @Override
