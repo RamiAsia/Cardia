@@ -15,12 +15,13 @@ public class HealthStatistics {
     ArrayList<Integer> modeHeartRate;
     private int lowestHeartRate;
     private int highestHeartRate;
+    private int energyExpended;
 
 
 
 
     public HealthStatistics(){
-
+        this.energyExpended = 0;
     }
 
     public HealthStatistics(ArrayList<DataPoint> dataPoints){
@@ -43,6 +44,7 @@ public class HealthStatistics {
             if(heartRate < min) min = dataPoint.getHeartRate();
             if(heartRate > max) max = dataPoint.getHeartRate();
             heartRates[index++] = heartRate;
+            this.energyExpended += dataPoint.getEnergyExpended();
         }
 
         this.lowestHeartRate = min;
@@ -117,5 +119,13 @@ public class HealthStatistics {
 
     public void setHighestHeartRate(int highestHeartRate) {
         this.highestHeartRate = highestHeartRate;
+    }
+
+    public int getEnergyExpended() {
+        return energyExpended;
+    }
+
+    public void setEnergyExpended(int energyExpended) {
+        this.energyExpended = energyExpended;
     }
 }
