@@ -9,7 +9,7 @@ import java.util.Date;
 public class DataPoint implements Comparable<DataPoint> {
 
 
-    long id;
+    private long id;
 
     // Heart Rate is measured in beats per minute (BPM)
     private int heartRate;

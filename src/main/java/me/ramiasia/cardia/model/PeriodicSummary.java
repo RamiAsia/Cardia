@@ -11,12 +11,24 @@ import java.util.Date;
 
 public class PeriodicSummary {
 
+    // Period types:
+    static final int BIHOURLY_SUMMARY = 0;
+    static final int HOURLY_SUMMARY = 1;
+    static final int DAILY_SUMMARY = 2;
+    static final int WEEKLY_SUMMARY = 3;
+    static final int MONTHLY_SUMMARY = 4;
+    static final int CUSTOM_SUMMARY = 5;
+
+
     private long id;
 
-    // Start time of the Reading Summary
+    // Period type for Periodic Summary
+    private int periodType;
+
+    // Start time of the Periodic Summary
     private DateTime startTime;
 
-    // End time of the Reading Summary
+    // End time of the Periodic Summary
     private DateTime endTime;
 
     // Highest heart rate recorded of the user
@@ -40,16 +52,17 @@ public class PeriodicSummary {
     }
 
 
-    public PeriodicSummary(DateTime startTime, DateTime endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
+    public PeriodicSummary(int periodType, DateTime startTime, DateTime endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
         this.highestHeartRate = highestHeartRate;
         this.lowestHeartRate = lowestHeartRate;
         this.modeHeartRate = modes;
         this.averageHeartRate = averageHeartRate;
         this.endTime = endTime;
         this.startTime = startTime;
+        this.periodType = periodType;
     }
 
-    public PeriodicSummary(int id, DateTime startTime, DateTime endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
+    public PeriodicSummary(int id, int periodType, DateTime startTime, DateTime endTime, int highestHeartRate, int lowestHeartRate, int averageHeartRate, ArrayList<Integer> modes){
         this.id = id;
         this.highestHeartRate = highestHeartRate;
         this.lowestHeartRate = lowestHeartRate;
@@ -57,6 +70,7 @@ public class PeriodicSummary {
         this.averageHeartRate = averageHeartRate;
         this.endTime = endTime;
         this.startTime = startTime;
+        this.periodType = periodType;
     }
 
 
@@ -124,5 +138,13 @@ public class PeriodicSummary {
 
     public void setEnergyExpended(int energyExpended) {
         this.energyExpended = energyExpended;
+    }
+
+    public int getPeriodType() {
+        return periodType;
+    }
+
+    public void setPeriodType(int periodType) {
+        this.periodType = periodType;
     }
 }
