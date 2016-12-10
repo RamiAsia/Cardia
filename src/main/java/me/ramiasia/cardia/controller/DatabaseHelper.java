@@ -172,7 +172,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(KEY_HRM_MODE, mode);
             if (summaryType == TABLE_PERIODIC_SUMMARY_CODE)
                 values.put(KEY_SUMMARY_TYPE, TABLE_PERIODIC_SUMMARY);
-            else
+            else if (summaryType == TABLE_READING_SUMMARY_CODE)
                 values.put(KEY_SUMMARY_TYPE, TABLE_READING_SUMMARY);
 
             db.insert(TABLE_SUMMARY_MODE, null, values);
@@ -192,6 +192,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 modes.add(results.getInt(3));
             } while (results.moveToNext());
         }
+
+        results.close();
 
         return modes;
     }
@@ -216,6 +218,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 readingSummaries.add(readingSummary);
             } while (results.moveToNext());
         }
+
+        results.close();
         return readingSummaries;
     }
 
@@ -242,6 +246,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 periodicSummaries.add(periodicSummary);
             } while (results.moveToNext());
         }
+
+        results.close();
 
         return periodicSummaries;
     }
